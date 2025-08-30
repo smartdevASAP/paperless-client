@@ -11,7 +11,7 @@ export const AppContextProvider = ({ children }) => {
 
   //when the component mounts;
   useEffect(() => {
-    setAppMode(true);
+    setAppMode(!appMode);
   }, []);
   // Values you want to share
   const value = {

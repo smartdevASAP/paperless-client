@@ -34,7 +34,7 @@ function Nav() {
           <img
             onClick={() => buttonHandlerFunction()}
             className="p-2 w-[33.3px] h-[33.33px] border-1 border-gray-200 rounded-sm"
-            src={!buttonMode ? assets.sun : assets.moon}
+            src={buttonMode ? assets.sun : assets.moon}
             alt=""
           />
         </button>
