@@ -8,7 +8,7 @@ import Footer from "./user/components/footer";
 function App() {
   const { appMode, setAppMode } = useAppContext();
   return (
-    <div className={`${!appMode ? "bg-gray-100/1.5" : "bg-zinc-900"}`}>
+    <div className={`${!appMode ? "bg-gray-100/1.5" : "bg-neutral-900"}`}>
       <div className="p-2  w-[90vw] mx-auto">
         <Nav />
         <Header />

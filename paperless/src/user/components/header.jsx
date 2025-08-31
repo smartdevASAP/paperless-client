@@ -4,10 +4,13 @@ import { useAppContext } from "../../context/appcontext";
 function Header() {
   const { appMode, setAppMode } = useAppContext();
   return (
-    <div className="border-gray-200 border-b pb-8">
+    <div className="border-gray-200 relative border-b pb-8">
+      {appMode ? (
+        <img className="absolute top-2 left-2" src={assets.eclipse} alt="" />
+      ) : null}
       <div className="w-[60vw]  mx-auto mt-8">
         <h1
-          className={`text-center font-bold text-xl md:text-2xl ${
+          className={`text-center font-bold text-xl md:text-4xl ${
             !appMode ? "text-gray-600" : "text-white"
           } mb-8`}
         >
@@ -22,7 +25,11 @@ function Header() {
 
         {/* Image wrapper to center */}
         <div className="flex justify-center mt-4 mb-4">
-          <img className="p-2" src={assets.header} alt="Paperless Header" />
+          {!appMode ? (
+            <img className="p-2" src={assets.header} alt="Paperless Header" />
+          ) : (
+            <img src={assets.header_dark} alt="" />
+          )}
         </div>
 
         <button className=" text-center p-3 flex justify-center text-white bg-blue-500 w-full md:w-[250px] mx-auto rounded-xs">
