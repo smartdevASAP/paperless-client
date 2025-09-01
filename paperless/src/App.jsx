@@ -6,7 +6,7 @@ import Header from "./user/components/header";
 import { useAppContext } from "./context/appcontext";
 import FeaturesSection from "./user/components/features";
 import Footer from "./user/components/footer";
-import Auth from "./authentication/user_auth/auth";
+import UserAuth from "./authentication/user_auth/userAuth";
 
 function App() {
   const { appMode } = useAppContext();
@@ -28,7 +28,7 @@ function App() {
                 </>
               }
             />
-            <Route path="/authentication" element={<Auth />} />
+            <Route path="/authentication" element={<UserAuth />} />
           </Routes>
         </div>
       </div>

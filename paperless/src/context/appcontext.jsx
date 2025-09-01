@@ -8,17 +8,24 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [appMode, setAppMode] = useState(true);
+  //user end authentication credentials
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
 
   //when the component mounts;
   useEffect(() => {
     setAppMode(!appMode);
   }, []);
-  // Values you want to share
+  // Values to pass down the component tree
   const value = {
     user,
     setUser,
     setAppMode,
     appMode,
+    userEmail,
+    setUserEmail,
+    userPassword,
+    setUserPassword,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
