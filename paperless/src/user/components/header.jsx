@@ -1,6 +1,7 @@
 import React from "react";
 import { assets } from "../../assets/assets_config";
 import { useAppContext } from "../../context/appcontext";
+import { Link } from "react-router-dom";
 function Header() {
   const { appMode, setAppMode } = useAppContext();
   return (
@@ -10,7 +11,7 @@ function Header() {
       ) : null}
       <div className="w-[60vw]  mx-auto mt-8">
         <h1
-          className={`text-center font-bold text-xl md:text-4xl ${
+          className={`text-center font-bold text-2xl md:text-4xl ${
             !appMode ? "text-gray-600" : "text-white"
           } mb-8`}
         >
@@ -32,9 +33,12 @@ function Header() {
           )}
         </div>
 
-        <button className=" text-center p-3 flex justify-center text-white bg-blue-500 w-full md:w-[250px] mx-auto rounded-xs">
+        <Link
+          className=" text-center p-3 flex justify-center text-white bg-blue-500 w-full md:w-[250px] mx-auto rounded-xs"
+          to="authentication"
+        >
           Get Started
-        </button>
+        </Link>
       </div>
     </div>
   );
