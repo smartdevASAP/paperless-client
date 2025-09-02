@@ -1,5 +1,6 @@
 import React from "react";
 import { FileText, Search, Headphones } from "lucide-react";
+import { useAppContext } from "../../context/appcontext";
 
 const features = [
   {
@@ -20,6 +21,7 @@ const features = [
 ];
 
 function FeaturesSection() {
+  const { appMode, setAppMode } = useAppContext();
   return (
     <section className="py-16 ">
       <div className="max-w-5xl mx-auto px-6">
@@ -32,14 +34,16 @@ function FeaturesSection() {
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-800 shadow-sm rounded-2xl p-6 text-center hover:shadow-md transition"
+                className={`bg-white shadow-sm ${
+                  appMode ? "dark:bg-slate-800" : ""
+                } rounded-2xl p-6 text-center hover:shadow-md transition`}
               >
                 <div className="flex justify-center mb-4">
-                  <div className="p-4 bg-blue-100 dark:bg-blue-900 rounded-full">
+                  <div className="p-4 bg-blue-100 rounded-full">
                     <Icon className="w-8 h-8 text-blue-500" />
                   </div>
                 </div>
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-100 mb-2">
+                <h3 className="font-semibold text-lg  text-gray-500 mb-2">
                   {feature.title}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">

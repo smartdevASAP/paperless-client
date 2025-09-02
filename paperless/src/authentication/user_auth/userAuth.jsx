@@ -57,10 +57,10 @@ function UserAuth() {
             Create A Paperless Account
           </h1>
           <p className="text-xs text-gray-500  mt-4 mb-8">
-            Welcome back to Paperless 👋Your documents are safe,secure,and just
-            a click away.
+            Welcome to Paperless 👋Your documents are safe,secure,and just a
+            click away.
           </p>
-          <div className="flex justify-between">
+          <div className="flex gap-2 md:justify-between">
             <div>
               <p className="text-sm text-gray-500 ">first name</p>
               <input

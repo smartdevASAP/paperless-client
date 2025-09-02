@@ -60,13 +60,15 @@ function Features() {
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-800 shadow-sm rounded-2xl p-6 hover:shadow-md transition"
+                className={`bg-white ${
+                  appMode ? "dark:bg-slate-800" : ""
+                } shadow-sm rounded-2xl p-6 hover:shadow-md transition`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-xl">
+                  <div className="p-3 bg-blue-100  rounded-xl">
                     <Icon className="w-6 h-6 text-blue-500" />
                   </div>
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-600">
                     {feature.title}
                   </h3>
                 </div>
@@ -83,3 +85,5 @@ function Features() {
 }
 
 export default Features;
+//dark:bg-slate-800
+//dark:bg-blue-900
