@@ -7,6 +7,7 @@ import { useAppContext } from "./context/appcontext";
 import FeaturesSection from "./user/components/features";
 import Footer from "./user/components/footer";
 import UserAuth from "./authentication/user_auth/userAuth";
+import Layout from "./dashboards/user_dashboard/layout";
 
 function App() {
   const { appMode } = useAppContext();
@@ -14,7 +15,7 @@ function App() {
   return (
     <>
       <div className={`${!appMode ? "bg-gray-100/1.5" : "bg-neutral-900"}`}>
-        <div className="p-2 w-[90vw] mx-auto">
+        <div className="">
           <Routes>
             <Route
               path="/"
@@ -29,6 +30,7 @@ function App() {
               }
             />
             <Route path="/authentication" element={<UserAuth />} />
+            <Route path="/user-dashboard/*" element={<Layout />} />
           </Routes>
         </div>
       </div>

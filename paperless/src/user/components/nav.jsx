@@ -12,7 +12,7 @@ function Nav() {
     setAppMode(!appMode);
   };
   return (
-    <nav className="py-2 border-b-1 border-gray-100 flex justify-between items-center">
+    <nav className="py-2  w-[90vw] mx-auto border-b-1 border-gray-100 flex justify-between items-center">
       {!appMode ? (
         <img src={assets.logo} alt="" />
       ) : (

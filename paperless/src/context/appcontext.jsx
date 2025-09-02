@@ -6,7 +6,7 @@ export const AppContext = createContext();
 
 // Provider component
 export const AppContextProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState("unauthorised");
   const [appMode, setAppMode] = useState(true);
   //user end authentication credentials
   const [userEmail, setUserEmail] = useState("");
