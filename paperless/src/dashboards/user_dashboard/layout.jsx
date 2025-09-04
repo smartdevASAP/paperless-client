@@ -8,15 +8,18 @@ import { Routes, Route } from "react-router-dom";
 
 function Layout() {
   return (
-    <div className="flex gap-2">
+    <div className="flex h-screen gap-2">
       <Sidebar />
-      <hr className="w-px bg-gray-200 h-screen border-0" />
-      <Routes>
-        <Route element={<DashHome />} path="/dashHome" />
-        <Route element={<Documents />} path="/documents" />
-        <Route element={<Upload />} path="/upload" />
-        <Route element={<Settings />} path="/settings" />
-      </Routes>
+      <hr className="w-[0.5px] h-screen bg-gray-200 border-0" />
+      {/* Wrapper for routes */}
+      <div className="flex-1 p-4 overflow-y-auto">
+        <Routes>
+          <Route element={<DashHome />} path="/dashHome" />
+          <Route element={<Documents />} path="/documents" />
+          <Route element={<Upload />} path="/upload" />
+          <Route element={<Settings />} path="/settings" />
+        </Routes>
+      </div>
     </div>
   );
 }
