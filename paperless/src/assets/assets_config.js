@@ -45,3 +45,11 @@ export const recentlyAdded = [
     date: "12-09-2021",
   },
 ];
+
+//all documents added in paperless;
+export const documents = [
+  { img: file, text: "Birth certificate" },
+  { img: file, text: " Title Deed" },
+  { img: file, text: "National ID" },
+  { img: file, text: "Slip" },
+];
