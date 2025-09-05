@@ -14,6 +14,7 @@ export const AppContextProvider = ({ children }) => {
 
   //when the component mounts;
   useEffect(() => {
+    //ensuring light mode by default
     setAppMode(!appMode);
   }, []);
   // Values to pass down the component tree

@@ -37,13 +37,13 @@ function AllDocuments() {
               {/* Print */}
               <button className="flex items-center justify-center gap-1 px-3 py-2 text-xs md:text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 transition w-1/2 md:w-auto">
                 <Printer size={16} />
-                <span className="hidden sm:inline">Print</span>
+                <span className=" sm:inline">Print</span>
               </button>
 
               {/* Share */}
               <button className="flex items-center justify-center gap-1 px-3 py-2 text-xs md:text-sm text-white bg-green-500 rounded-md hover:bg-green-600 transition w-1/2 md:w-auto">
                 <Share2 size={16} />
-                <span className="hidden sm:inline">Share</span>
+                <span className="sm:inline">Share</span>
               </button>
             </div>
           </div>
