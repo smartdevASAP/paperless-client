@@ -1,6 +1,7 @@
 const express = require("express");
 const app = require("./app.js");
 const dotenv = require("dotenv");
+
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
 
