@@ -4,7 +4,7 @@ const User = require("../../models/usermodel.js");
 exports.pingTrigger = (req, res) => {
   res.status(200).json({
     status: "true",
-    message: "API endpoint working as expected",
+    message: "API is working",
   });
 };
 

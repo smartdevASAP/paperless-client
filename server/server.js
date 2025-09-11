@@ -6,15 +6,14 @@ const mongoose = require("mongoose");
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
 
-//mongo DB connection URI
-
 const databaseFunction = async () => {
   try {
     await mongoose
       .connect(process.env.CONNECTION_URI)
       .then(console.log("Database connected succesfully"));
   } catch (err) {
-    console.log(err.message);
+    if (err) console.log(err.message);
+    console.log("error occured when trying to connect to the database");
   }
 };
 databaseFunction();
