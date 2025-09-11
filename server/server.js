@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
-
+//mongo DB connection URI
 const PORT = process.env.PORT || 8000;
 //listening to the server port
 app.listen(PORT, () => {
