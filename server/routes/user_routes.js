@@ -4,5 +4,6 @@ const user_functions = require("../controllers/user_controllers/user_controllers
 
 route.get("/ping", user_functions.pingTrigger);
 route.post("/signin", user_functions.sign_user);
+route.post("/login", user_functions.login_user);
 
 module.exports = route;
