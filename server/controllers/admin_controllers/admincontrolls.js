@@ -1,7 +1,7 @@
 const express = require("express");
 const Admin = require("../../models/adminmodel.js");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 exports.registerAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -23,6 +23,17 @@ exports.registerAdmin = async (req, res) => {
     const admin = await Admin.create({
       email,
       password: hashedPassword,
+    });
+    //JWT setting;
+    const token = jwt.sign({ id: admin._id }, process.env.SECRET_STR, {
+      expiresIn: "2d",
+    });
+    //cookie setting;
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 7 * 24 * 3600 * 1000,
     });
 
     res.status(201).json({
@@ -60,7 +71,18 @@ exports.loginAdmin = async (req, res) => {
       });
     }
 
-    // You’ll probably want to generate a JWT here
+    //JWT setting;
+    const token = jwt.sign({ id: admin._id }, process.env.SECRET_STR, {
+      expiresIn: "2d",
+    });
+    //cookie setting;
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 7 * 24 * 3600 * 1000,
+    });
+
     res.status(200).json({
       success: true,
       message: "Login successful",
@@ -70,6 +92,28 @@ exports.loginAdmin = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Error occurred in logging in the admin: " + err.message,
+    });
+  }
+};
+
+//logout admin
+exports.logout_admin = async (req, res) => {
+  try {
+    //a protected route that has a middleware before the execution of the controller function
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
+    //API response;
+    res.status(200).json({
+      success: true,
+      message: "logged out succesfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "error occured: " + err.message,
     });
   }
 };

@@ -2,6 +2,7 @@ const express = require("express");
 const app = require("./app.js");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const connectCloudinary = require("./configs/cloudinary.js");
 
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
@@ -17,6 +18,7 @@ const databaseFunction = async () => {
   }
 };
 databaseFunction();
+connectCloudinary();
 
 const PORT = process.env.PORT || 8000;
 //listening to the server port
