@@ -54,6 +54,13 @@ exports.sign_user = async (req, res) => {
 //login in a user
 exports.login_user = async (req, res) => {
   const { email, password } = req.body;
+  //missing fields;
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "missing details in the input form",
+    });
+  }
   const found_user = await User.findOne({ email });
   if (!found_user) {
     return res.status(404).json({
@@ -63,16 +70,48 @@ exports.login_user = async (req, res) => {
   }
   //when the user is in the DB
   try {
-    if (found_user) {
-      res.status(201).json({
-        success: true,
-        user: found_user,
-      });
-    }
+    //JWT setting;
+    const token = jwt.sign({ id: found_user._id }, process.env.SECRET_STR, {
+      expiresIn: "2d",
+    });
+    //cookie setting;
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 7 * 24 * 3600 * 1000,
+    });
+
+    res.status(201).json({
+      success: true,
+      user: found_user,
+    });
   } catch (err) {
     return res.status(404).json({
       success: false,
       message: `error occured: ${err.message}`,
+    });
+  }
+};
+//get profile;
+exports.getProfile = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      return res.status(404).json({
+        success: false,
+        message: "no user with such ID found in the database",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      foundUser,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      message: "error occured: " + err.message,
     });
   }
 };
