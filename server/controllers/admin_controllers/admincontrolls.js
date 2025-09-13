@@ -1,5 +1,6 @@
 const express = require("express");
 const Admin = require("../../models/adminmodel.js");
+const Users = require("../../models/usermodel.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 exports.registerAdmin = async (req, res) => {
@@ -109,6 +110,31 @@ exports.logout_admin = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "logged out succesfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "error occured: " + err.message,
+    });
+  }
+};
+
+//getting all the users;
+exports.getAllUsers = async (req, res) => {
+  try {
+    //finding all the users
+    const allUsers = await Users.find({});
+    if (!Users) {
+      return res.status(200).json({
+        success: true,
+        message: "there are no users currently",
+      });
+    }
+    //if there are users;
+    res.status(200).json({
+      success: true,
+      total_users: Users.length + 1,
+      allUsers,
     });
   } catch (err) {
     return res.status(500).json({
