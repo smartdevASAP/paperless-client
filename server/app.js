@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
-const route = require("../server/routes/user_routes.js");
+const user_endpoints = require("../server/routes/user_routes.js");
+const admin_endpoints = require("./routes/admin_routes.js");
 const cookieParser = require("cookie-parser");
 //adding document middleware
 app.use(cookieParser());
 app.use(express.json());
-
-//adding a test command
-app.use("/home", route);
+//user entry point
+app.use("/home", user_endpoints);
+//admin entry point
+app.use("/admin", admin_endpoints);
 
 module.exports = app;
