@@ -116,6 +116,42 @@ exports.getProfile = async (req, res) => {
   }
 };
 
+//updating the existing credentials;
+exports.update = async (req, res) => {
+  try {
+    // to extract param from URL
+    const { id } = req.params;
+
+    // Grab update fields from request body
+    const { email, password, username } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { email, password, username },
+      { new: true, runValidators: true }
+      // returns updated doc & validates schema 👆
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      data: updatedUser,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "Error occurred: " + err.message,
+    });
+  }
+};
+
 //logout in a user;
 exports.logout = async (req, res) => {
   try {

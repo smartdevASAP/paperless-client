@@ -8,5 +8,6 @@ route.post("/signin", user_functions.sign_user);
 route.post("/login", user_functions.login_user);
 route.post("/logout", middlewares.auth_user, user_functions.logout);
 route.get("/:id", middlewares.auth_user, user_functions.getProfile);
+route.patch("/profile/:id", middlewares.auth_user, user_functions.update);
 
 module.exports = route;
