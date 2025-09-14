@@ -3,6 +3,7 @@ const Admin = require("../../models/adminmodel.js");
 const Users = require("../../models/usermodel.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+//registering admin
 exports.registerAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -16,10 +17,8 @@ exports.registerAdmin = async (req, res) => {
           "Only one admin is allowed. Ask for permission to be onboarded.",
       });
     }
-
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
-
     // Create the admin
     const admin = await Admin.create({
       email,
