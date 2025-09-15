@@ -173,3 +173,24 @@ exports.logout = async (req, res) => {
     });
   }
 };
+//forgot password;
+exports.forgot_password = async (req, res) => {
+  const { email } = req.body;
+  //get the user from the DB
+  const found_user = await User.findOne({ email });
+  if (!found_user) {
+    return res.status(404).json({
+      success: false,
+      message: `user with email ${email} is not logged in. Please return to login`,
+    });
+  }
+  //when the user exists
+  try {
+    const { new_password } = req.body;
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
