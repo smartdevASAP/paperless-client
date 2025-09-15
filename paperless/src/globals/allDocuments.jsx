@@ -3,6 +3,14 @@ import { documents } from "../assets/assets_config";
 import { Printer, Share2 } from "lucide-react";
 
 function AllDocuments() {
+  //handling the printing ability
+  const handlePrint = () => {
+    window.print();
+  };
+  //handle sharing
+  const handleShare = () => {
+    window.alert("sharing is not enabled in this app yet....");
+  };
   return (
     <div className="p-2">
       <div className="flex justify-between items-end">
@@ -35,7 +43,10 @@ function AllDocuments() {
             {/* Action Buttons */}
             <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 w-full md:w-auto">
               {/* Print */}
-              <button className="flex items-center justify-center gap-1 px-3 py-2 text-xs md:text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 transition w-1/2 md:w-auto">
+              <button
+                onClick={() => handlePrint()}
+                className="flex cursor-pointer items-center justify-center gap-1 px-3 py-2 text-xs md:text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 transition w-1/2 md:w-auto"
+              >
                 <Printer size={16} />
                 <span className=" sm:inline">Print</span>
               </button>
@@ -43,7 +54,12 @@ function AllDocuments() {
               {/* Share */}
               <button className="flex items-center justify-center gap-1 px-3 py-2 text-xs md:text-sm text-white bg-green-500 rounded-md hover:bg-green-600 transition w-1/2 md:w-auto">
                 <Share2 size={16} />
-                <span className="sm:inline">Share</span>
+                <span
+                  onClick={() => handleShare()}
+                  className="cursor-pointer sm:inline"
+                >
+                  Share
+                </span>
               </button>
             </div>
           </div>

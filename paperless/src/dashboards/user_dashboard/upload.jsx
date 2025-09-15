@@ -34,6 +34,17 @@ function Upload() {
             placeholder="e.g. National ID"
           />
         </div>
+        {/* descrption */}
+        <div className="mb-4">
+          <label className="text-sm text-gray-500 mb-1 block">
+            Description{" "}
+          </label>
+          <input
+            type="text"
+            className="w-full border border-gray-200 p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="e.g. my national identity card"
+          />
+        </div>
 
         {/* File Upload */}
         <div className="p-6 border border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center gap-3 text-center cursor-pointer hover:border-blue-400 transition">
@@ -59,7 +70,7 @@ function Upload() {
         {/* Metadata */}
         <div className="mt-6 text-sm text-gray-500 space-y-1">
           <p>
-            <span className="font-medium">Created at:</span>{" "}
+            <span className="font-medium">Created at:</span>
             {new Date().toLocaleDateString()}
           </p>
           <p>
