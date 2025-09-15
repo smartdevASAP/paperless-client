@@ -13,6 +13,10 @@ logs
 *.log
 logs/*.log
 
+# trash-code
+trash 
+trash/
+
 # OS generated files
 .DS_Store
 Thumbs.db

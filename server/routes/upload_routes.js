@@ -1,39 +1,13 @@
 const express = require("express");
 const multer = require("multer");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+const uploadFile = require("../controllers/upload_controllers/upload_controllers.js");
 
 const router = express.Router();
 
-// store files temporarily in /uploads
+// Multer to handle file uploads to local "uploads/" folder
 const upload = multer({ dest: "uploads/" });
 
-router.post("/upload", upload.single("file"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: "No file uploaded" });
-    }
-
-    console.log(" File received:", req.file);
-
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "paperless_uploads",
-    });
-
-    // delete local file
-    fs.unlink(req.file.path, (err) => {
-      if (err) console.error("Failed to delete temp file:", err);
-    });
-
-    res.json({
-      success: true,
-      url: result.secure_url,
-      public_id: result.public_id,
-    });
-  } catch (err) {
-    console.error("Upload error:", err);
-    res.status(500).json({ error: "File upload failed" });
-  }
-});
+// Route: POST /api/upload
+router.post("/upload", upload.single("file"), uploadFile.uploadFile);
 
 module.exports = router;
