@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 function UserAuth() {
   //consuming the context
   const {
+    username,
+    setUsername,
     appMode,
     setAppMode,
     userEmail,
@@ -24,47 +26,14 @@ function UserAuth() {
     setUserStatus(false);
   }, []);
 
-  const inputs = [
-    {
-      _id: 0,
-      p: "email",
-      type: "email",
-      placeholder: "email@email.ai",
-      handler: setUserEmail,
-    },
-    {
-      _id: 1,
-      p: "password",
-      type: "password",
-      placeholder: "******",
-      handler: setUserPassword,
-    },
-    // {
-    //   _id: 2,
-    //   p: "confirm password",
-    //   type: "password",
-    //   placeholder: "******",
-    //   handler: setUserPassword,
-    // },
-  ];
-  //logins
-  const logins = [
-    {
-      _id: 0,
-      p: "email",
-      type: "email",
-      placeholder: "email@email.ai",
-      handler: setUserEmail,
-    },
-    {
-      _id: 1,
-      p: "password",
-      type: "password",
-      placeholder: "******",
-      handler: setUserPassword,
-    },
-  ];
-
+  //checking the credentials on development
+  const submitCredentials = () => {
+    console.log({ username, userEmail, userPassword });
+  };
+  //forgot password
+  const forgotPassword = () => {
+    window.alert("Cannot change password please try again later");
+  };
   return (
     <div className="p-2  md:p-4">
       <Link to="/">
@@ -82,38 +51,40 @@ function UserAuth() {
                 Welcome to Paperless 👋Your documents are safe,secure,and just a
                 click away.
               </p>
-              <div className="flex gap-2 md:justify-between">
+              <div className="w-full">
                 <div>
-                  <p className="text-sm text-gray-500 ">first name</p>
+                  <p className="text-sm text-gray-500 ">username</p>
                   <input
+                    onChange={(e) => setUsername(e.target.value)}
                     className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
                     type="text"
                     placeholder="Charity"
                   />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 ">Last name</p>
+                  <p className="text-sm text-gray-500 ">email</p>
                   <input
-                    className="block mb-6 border-1 w-full text-gray-400 rounded-xs p-2 border-gray-200"
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
                     type="text"
-                    placeholder="Wangithi"
+                    placeholder="charity@gmail.ai"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 ">password</p>
+                  <input
+                    onChange={(e) => setUserPassword(e.target.value)}
+                    className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
+                    type="text"
+                    placeholder="***********"
                   />
                 </div>
               </div>
-              {inputs.map((item) => {
-                return (
-                  <div>
-                    <p className="text-sm text-gray-500 ">{item.p}</p>
-                    <input
-                      className="block mb-6 border-1 text-gray-400 rounded-xs w-full p-2 border-gray-200"
-                      key={item._id}
-                      type={item.type}
-                      placeholder={item.placeholder}
-                    />
-                  </div>
-                );
-              })}
-              <button className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center">
+
+              <button
+                onClick={() => submitCredentials()}
+                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+              >
                 create account
               </button>
               <p className="text-gray-500 text-xs">
@@ -142,25 +113,38 @@ function UserAuth() {
               </p>
               {/* container for all inputs fields */}
               <div>
-                {logins.map((field) => {
-                  return (
-                    <>
-                      <p className="text-sm text-gray-500 ">{field.p}</p>
-                      <input
-                        className="block mb-6 border-1 text-gray-400 rounded-xs w-full p-2 border-gray-200"
-                        key={field._id}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                      />
-                    </>
-                  );
-                })}
+                <div>
+                  <p className="text-sm text-gray-500 ">email</p>
+                  <input
+                    onChange={(e) => setUserPassword(e.target.value)}
+                    className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
+                    type="text"
+                    placeholder="***********"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 ">password</p>
+                  <input
+                    onChange={(e) => setUserPassword(e.target.value)}
+                    className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
+                    type="text"
+                    placeholder="***********"
+                  />
+                </div>
                 <div className="flex justify-between">
                   <div />
-                  <p className="text-xs text-gray-600">Forgot password?</p>
+                  <p
+                    className="text-xs hover:cursor-pointer text-gray-600"
+                    onClick={() => forgotPassword()}
+                  >
+                    Forgot password?
+                  </p>
                 </div>
               </div>
-              <button className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center">
+              <button
+                onClick={() => submitCredentials()}
+                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+              >
                 Login
               </button>
               <p className="text-gray-500 text-xs">

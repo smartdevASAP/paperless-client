@@ -9,6 +9,7 @@ export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("unauthorised");
   const [appMode, setAppMode] = useState(true);
   //user end authentication credentials
+  const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -27,6 +28,8 @@ export const AppContextProvider = ({ children }) => {
     setUserEmail,
     userPassword,
     setUserPassword,
+    username,
+    setUsername,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
