@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Header() {
   const { appMode, setAppMode } = useAppContext();
   return (
-    <div className="border-gray-200 relative border-b pb-8">
+    <div id="" className="border-gray-200 relative border-b pb-8">
       {appMode ? (
         <img className="absolute top-2 left-2" src={assets.eclipse} alt="" />
       ) : null}

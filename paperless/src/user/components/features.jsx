@@ -23,7 +23,7 @@ const features = [
 function FeaturesSection() {
   const { appMode, setAppMode } = useAppContext();
   return (
-    <section className="py-16 ">
+    <section className="py-16 " id="home">
       <div className="max-w-5xl mx-auto px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-500 ">
           Our Features

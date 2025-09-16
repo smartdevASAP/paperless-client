@@ -6,7 +6,10 @@ function Footer() {
   return (
     <div>
       <>
-        <footer className="flex flex-col items-center justify-around w-full py-16 text-sm   text-gray-400 ">
+        <footer
+          id="support"
+          className="flex flex-col items-center justify-around w-full py-16 text-sm   text-gray-400 "
+        >
           {!appMode ? (
             <img src={assets.logo} alt="" />
           ) : (

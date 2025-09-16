@@ -46,6 +46,7 @@ function Features() {
   const { appMode } = useAppContext();
   return (
     <section
+      id="about"
       className={`py-12 bg-gray-100 ${
         !appMode ? "bg-gray-100/1.5" : "bg-zinc-900"
       }`}
