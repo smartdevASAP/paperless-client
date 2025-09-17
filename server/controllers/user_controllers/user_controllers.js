@@ -44,7 +44,8 @@ exports.sign_user = async (req, res) => {
     });
   } catch (err) {
     console.log(err.message);
-    return res.status(400).json({
+    //400 0r 500
+    return res.status(500).json({
       success: false,
       message: `error is ${err.message}`,
     });
