@@ -1,5 +1,6 @@
 import React from "react";
 import { assets } from "../assets/assets_config";
+import { Link } from "react-router-dom";
 function AddFile() {
   return (
     <>
@@ -23,9 +24,11 @@ function AddFile() {
             <p className="text-gray-400 text-xs md:text-sm  mb-5 w-full ">
               Upload and store your papers in paperless with extreme ease
             </p>
-            <button className="py-2 px-3 text-xs md:text-sm rounded-xs  md:rounded-sm bg-blue-500 text-white text-center">
-              Add PDF file
-            </button>
+            <Link to="/user-dashboard/upload">
+              <button className="py-2 px-3 text-xs md:text-sm rounded-xs  md:rounded-sm bg-blue-500 text-white text-center">
+                Add PDF file
+              </button>
+            </Link>
           </div>
         </div>
       </section>

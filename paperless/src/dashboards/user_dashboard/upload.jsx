@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import { assets } from "../../assets/assets_config";
 import { UploadCloud } from "lucide-react";
+import { useAppContext } from "../../context/appcontext";
 
 function Upload() {
-  const [file, setFile] = useState(null);
+  //destructuring the context;
+  const { setTitle, title, setDescription, description, setDocument } =
+    useAppContext();
 
+  const [file, setFile] = useState(null);
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+  //handle upload function;
+  const handleUpload = () => {
+    if (!title || !description) {
+      return window.alert(
+        "missing title or description in the uploading process"
+      );
+    }
+    console.log({ title, description });
   };
 
   return (
@@ -29,6 +42,7 @@ function Upload() {
             Document name
           </label>
           <input
+            onChange={(e) => setTitle(e.target.value)}
             type="text"
             className="w-full border border-gray-200 p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="e.g. National ID"
@@ -40,6 +54,7 @@ function Upload() {
             Description{" "}
           </label>
           <input
+            onChange={(e) => setDescription(e.target.value)}
             type="text"
             className="w-full border border-gray-200 p-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="e.g. my national identity card"
@@ -83,7 +98,10 @@ function Upload() {
           <button className="px-4 py-2 text-sm rounded-sm border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
             Cancel
           </button>
-          <button className="px-4 py-2 text-sm rounded-sm bg-blue-500 text-white hover:bg-blue-600 transition">
+          <button
+            onClick={() => handleUpload()}
+            className="px-4 py-2 text-sm rounded-sm bg-blue-500 text-white hover:bg-blue-600 transition"
+          >
             Upload
           </button>
         </div>

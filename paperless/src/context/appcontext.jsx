@@ -18,6 +18,11 @@ export const AppContextProvider = ({ children }) => {
     //ensuring light mode by default
     setAppMode(!appMode);
   }, []);
+  //uploading documents global functions
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [document, setDocument] = useState(null);
+
   // Values to pass down the component tree
   const value = {
     user,
@@ -30,6 +35,12 @@ export const AppContextProvider = ({ children }) => {
     setUserPassword,
     username,
     setUsername,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    document,
+    setDocument,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
