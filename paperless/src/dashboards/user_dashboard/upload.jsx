@@ -2,28 +2,39 @@ import React, { useState } from "react";
 import { assets } from "../../assets/assets_config";
 import { UploadCloud } from "lucide-react";
 import { useAppContext } from "../../context/appcontext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Upload() {
   //destructuring the context;
   const { setTitle, title, setDescription, description, setDocument } =
     useAppContext();
-
+  //files added
   const [file, setFile] = useState(null);
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
   //handle upload function;
   const handleUpload = () => {
+    if (!title && !description) {
+      return toast.error("No details provided in the uploading process");
+    }
+
     if (!title || !description) {
-      return window.alert(
-        "missing title or description in the uploading process"
+      return toast.error(
+        "Missing title or description in the uploading process"
       );
     }
-    console.log({ title, description });
+    console.log({ title, description, file });
   };
 
   return (
     <div className="p-4">
+      {/* Toast container */}
+      <ToastContainer position="top-right" autoClose={3000} />
+
       {/* Page Title */}
       <h1 className="md:text-2xl mb-6 text-lg font-bold text-gray-600">
         Upload
@@ -48,10 +59,11 @@ function Upload() {
             placeholder="e.g. National ID"
           />
         </div>
-        {/* descrption */}
+
+        {/* Description */}
         <div className="mb-4">
           <label className="text-sm text-gray-500 mb-1 block">
-            Description{" "}
+            Description
           </label>
           <input
             onChange={(e) => setDescription(e.target.value)}
@@ -85,7 +97,7 @@ function Upload() {
         {/* Metadata */}
         <div className="mt-6 text-sm text-gray-500 space-y-1">
           <p>
-            <span className="font-medium">Created at:</span>
+            <span className="font-medium">Created at:</span>{" "}
             {new Date().toLocaleDateString()}
           </p>
           <p>
@@ -99,7 +111,7 @@ function Upload() {
             Cancel
           </button>
           <button
-            onClick={() => handleUpload()}
+            onClick={handleUpload}
             className="px-4 py-2 text-sm rounded-sm bg-blue-500 text-white hover:bg-blue-600 transition"
           >
             Upload
