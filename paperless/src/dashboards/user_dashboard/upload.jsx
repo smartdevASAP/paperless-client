@@ -7,27 +7,19 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Upload() {
   //destructuring the context;
-  const { setTitle, title, setDescription, description, setDocument } =
-    useAppContext();
+  const {
+    setTitle,
+    title,
+    handleUpload,
+    setDescription,
+    description,
+    file,
+    setFile,
+  } = useAppContext();
   //files added
-  const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
-  };
-
-  //handle upload function;
-  const handleUpload = () => {
-    if (!title && !description) {
-      return toast.error("No details provided in the uploading process");
-    }
-
-    if (!title || !description) {
-      return toast.error(
-        "Missing title or description in the uploading process"
-      );
-    }
-    console.log({ title, description, file });
   };
 
   return (
