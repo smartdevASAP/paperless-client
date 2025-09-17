@@ -4,7 +4,6 @@ import { UploadCloud } from "lucide-react";
 import { useAppContext } from "../../context/appcontext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 function Upload() {
   //destructuring the context;
   const {
@@ -17,28 +16,23 @@ function Upload() {
     setFile,
   } = useAppContext();
   //files added
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-
   return (
     <div className="p-4">
       {/* Toast container */}
       <ToastContainer position="top-right" autoClose={3000} />
-
       {/* Page Title */}
       <h1 className="md:text-2xl mb-6 text-lg font-bold text-gray-600">
         Upload
       </h1>
-
       {/* Upload Section */}
       <section className="md:w-[420px] w-full bg-white p-4 rounded-sm shadow-sm border border-gray-100">
         <h2 className="font-semibold text-gray-700">Add PDF document</h2>
         <p className="text-xs text-gray-400 mb-6">
           Upload and save your documents securely in Paperless.
         </p>
-
         {/* Document name */}
         <div className="mb-4">
           <label className="text-sm text-gray-500 mb-1 block">
@@ -51,7 +45,6 @@ function Upload() {
             placeholder="e.g. National ID"
           />
         </div>
-
         {/* Description */}
         <div className="mb-4">
           <label className="text-sm text-gray-500 mb-1 block">
@@ -64,7 +57,6 @@ function Upload() {
             placeholder="e.g. my national identity card"
           />
         </div>
-
         {/* File Upload */}
         <div className="p-6 border border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center gap-3 text-center cursor-pointer hover:border-blue-400 transition">
           <UploadCloud className="text-gray-400 w-10 h-10" />
@@ -85,7 +77,6 @@ function Upload() {
             Choose File
           </label>
         </div>
-
         {/* Metadata */}
         <div className="mt-6 text-sm text-gray-500 space-y-1">
           <p>
@@ -96,7 +87,6 @@ function Upload() {
             <span className="font-medium">Created by:</span> You
           </p>
         </div>
-
         {/* Action Buttons */}
         <div className="mt-6 flex justify-end gap-3">
           <button className="px-4 py-2 text-sm rounded-sm border border-gray-300 text-gray-600 hover:bg-gray-100 transition">

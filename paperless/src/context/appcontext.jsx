@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { createContext, useContext, useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
 // Create context
@@ -9,33 +8,45 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("unauthorised");
   const [appMode, setAppMode] = useState(true);
-  //user end authentication credentials
+
+  // user end authentication credentials
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
-  //when the component mounts;
+  // when the component mounts
   useEffect(() => {
-    //ensuring light mode by default
-    setAppMode(!appMode);
+    setAppMode(!appMode); // ensuring light mode by default
   }, []);
-  //uploading documents global functions
+
+  // uploading documents global states
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [document, setDocument] = useState(null);
-  //actual file;
   const [file, setFile] = useState(null);
 
-  //documents added to paperless;
-  const [addedDocuments, setAddedDocuments] = useState([]);
+  // documents added to paperless (persist in localStorage)
+  const [addedDocuments, setAddedDocuments] = useState(() => {
+    const savedDocs = localStorage.getItem("addedDocuments");
+    return savedDocs ? JSON.parse(savedDocs) : [];
+  });
 
-  //function that controlles the documents in paperless👇
-  // const handleDocuments = () => {
-  //   console.log(title, description, file);
-  // };
+  useEffect(() => {
+    localStorage.setItem("addedDocuments", JSON.stringify(addedDocuments));
+  }, [addedDocuments]);
 
-  //handle upload function;
-  const handleUpload = () => {
+  // helper to convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  // handle upload function
+  const handleUpload = async () => {
     if (!title && !description && file == null) {
       return toast.error("No details provided in the uploading process");
     }
@@ -48,7 +59,22 @@ export const AppContextProvider = ({ children }) => {
       return toast.error("Choose a file to add to paperless");
     }
 
-    setAddedDocuments((prev) => [...prev, { title, description, file }]);
+    try {
+      const base64File = await fileToBase64(file);
+      setAddedDocuments((prev) => [
+        ...prev,
+        { title, description, file: base64File },
+      ]);
+
+      // clear fields after upload
+      setTitle("");
+      setDescription("");
+      setFile(null);
+      //most important part 👇👇👇
+      console.log({ title, description, file });
+    } catch (err) {
+      toast.error("Failed to process file");
+    }
   };
 
   // log when state updates
@@ -77,7 +103,7 @@ export const AppContextProvider = ({ children }) => {
     file,
     setFile,
     handleUpload,
-    // handleDocuments,
+    addedDocuments,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
