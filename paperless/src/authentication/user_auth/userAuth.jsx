@@ -27,8 +27,16 @@ function UserAuth() {
   }, []);
 
   //checking the credentials on development
-  const submitCredentials = () => {
+  //creating acc
+  const creatingAcc = () => {
+    console.log("user creating account....");
+
     console.log({ username, userEmail, userPassword });
+  };
+
+  const loggingIn = () => {
+    console.log("user logging in....");
+    console.log({ userEmail, userPassword });
   };
   //forgot password
   const forgotPassword = () => {
@@ -81,12 +89,14 @@ function UserAuth() {
                 </div>
               </div>
 
-              <button
-                onClick={() => submitCredentials()}
-                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
-              >
-                create account
-              </button>
+              <Link to="/user-dashboard">
+                <button
+                  onClick={() => creatingAcc()}
+                  className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+                >
+                  create account
+                </button>
+              </Link>
               <p className="text-gray-500 text-xs">
                 Already have an account{" "}
                 <a
@@ -141,12 +151,14 @@ function UserAuth() {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => submitCredentials()}
-                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
-              >
-                Login
-              </button>
+              <Link to="/user-dashboard">
+                <button
+                  onClick={() => loggingIn()}
+                  className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+                >
+                  Login
+                </button>
+              </Link>
               <p className="text-gray-500 text-xs">
                 I Dont have an account{" "}
                 <a
