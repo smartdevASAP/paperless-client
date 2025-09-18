@@ -16,7 +16,8 @@ export const AppContextProvider = ({ children }) => {
 
   // when the component mounts
   useEffect(() => {
-    setAppMode(!appMode); // ensuring light mode by default
+    // ensuring light mode by default
+    setAppMode(!appMode);
   }, []);
 
   // uploading documents global states
@@ -44,7 +45,6 @@ export const AppContextProvider = ({ children }) => {
       reader.onerror = (error) => reject(error);
     });
   };
-
   // handle upload function
   const handleUpload = async () => {
     if (!title && !description && file == null) {
@@ -108,7 +108,6 @@ export const AppContextProvider = ({ children }) => {
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
-
 // Custom hook for using context
 export const useAppContext = () => {
   return useContext(AppContext);

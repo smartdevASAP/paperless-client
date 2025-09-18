@@ -70,6 +70,7 @@ exports.login_user = async (req, res) => {
     });
   }
   //when the user is in the DB
+  //********forgot to add the bcrypt.compare() here */
   try {
     //JWT setting;
     const token = jwt.sign({ id: found_user._id }, process.env.SECRET_STR, {
