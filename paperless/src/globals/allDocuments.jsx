@@ -1,8 +1,11 @@
 import React from "react";
 import { documents } from "../assets/assets_config";
 import { Printer, Share2 } from "lucide-react";
+import { useAppContext } from "../context/appcontext";
+import { assets } from "../assets/assets_config";
 
 function AllDocuments() {
+  const { addedDocuments } = useAppContext();
   //handling the printing ability
   const handlePrint = () => {
     window.print();
@@ -22,21 +25,21 @@ function AllDocuments() {
         </h4>
       </div>
 
-      {documents.map((doc) => {
+      {addedDocuments.map((doc) => {
         return (
           <div
-            key={doc.img}
+            key={assets.file}
             className="border mb-4 flex flex-col md:flex-row border-gray-100 p-3 rounded-md justify-between items-start md:items-center gap-3"
           >
             {/* Document Info */}
             <div className="flex items-center gap-3 w-full md:w-auto">
               <img
-                src={doc.img}
+                src={assets.addFile}
                 alt=""
                 className="w-10 h-10 object-cover rounded"
               />
               <p className="text-gray-700 font-medium text-sm md:text-base truncate">
-                {doc.text}
+                {doc.title}
               </p>
             </div>
 

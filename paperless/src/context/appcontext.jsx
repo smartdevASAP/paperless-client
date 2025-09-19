@@ -61,9 +61,10 @@ export const AppContextProvider = ({ children }) => {
 
     try {
       const base64File = await fileToBase64(file);
+      const uploadDate = new Date();
       setAddedDocuments((prev) => [
         ...prev,
-        { title, description, file: base64File },
+        { title, description, file: base64File, date: uploadDate },
       ]);
 
       // clear fields after upload
@@ -71,7 +72,7 @@ export const AppContextProvider = ({ children }) => {
       setDescription("");
       setFile(null);
       //most important part 👇👇👇
-      console.log({ title, description, file });
+      console.log({ title, description, file, uploadDate });
     } catch (err) {
       toast.error("Failed to process file");
     }

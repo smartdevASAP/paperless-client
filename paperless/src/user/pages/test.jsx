@@ -4,11 +4,13 @@ function Test() {
   const { addedDocuments } = useAppContext();
   return (
     <div>
-      {addedDocuments.map((item) => {
+      {addedDocuments.map((item, key) => {
         return (
-          <div>
+          <div key={key}>
             <p>{item.title}</p>
             <p>{item.description}</p>
+            <p>{item.file}</p>
+            <p>{item.date}</p>
           </div>
         );
       })}
