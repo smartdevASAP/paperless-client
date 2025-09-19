@@ -3,6 +3,7 @@ import { assets } from "../../assets/assets_config";
 import { useAppContext } from "../../context/appcontext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function UserAuth() {
   //consuming the context
   const {
@@ -29,8 +30,8 @@ function UserAuth() {
   //checking the credentials on development
   //creating acc
   const creatingAcc = () => {
+    useNavigate("/user-dashboard/dashHome");
     console.log("user creating account....");
-
     console.log({ username, userEmail, userPassword });
   };
 
@@ -89,14 +90,15 @@ function UserAuth() {
                 </div>
               </div>
 
-              <Link to="/user-dashboard">
-                <button
-                  onClick={() => creatingAcc()}
-                  className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
-                >
-                  create account
-                </button>
-              </Link>
+              <button
+                onClick={() => {
+                  creatingAcc();
+                }}
+                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+              >
+                create account
+              </button>
+
               <p className="text-gray-500 text-xs">
                 Already have an account{" "}
                 <a
