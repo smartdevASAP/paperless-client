@@ -5,7 +5,7 @@ import Upload from "./upload.jsx";
 import Sidebar from "./sidebar.jsx";
 import Settings from "./settings.jsx";
 import { Routes, Route } from "react-router-dom";
-
+import Test from "../../user/pages/test.jsx";
 function Layout() {
   return (
     <div className="flex h-screen gap-2">
@@ -18,6 +18,7 @@ function Layout() {
           <Route element={<Documents />} path="/documents" />
           <Route element={<Upload />} path="/upload" />
           <Route element={<Settings />} path="/settings" />
+          <Route element={<Test />} path="/test" />
         </Routes>
       </div>
     </div>
