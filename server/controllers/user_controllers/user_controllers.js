@@ -70,6 +70,13 @@ exports.login_user = async (req, res) => {
     });
   }
   //when the user is in the DB
+  const isMatch = await bcrypt.compare(password, found_user.password);
+  if (!isMatch) {
+    return res.status(400).json({
+      success: false,
+      message: "invalid password provided",
+    });
+  }
   //********forgot to add the bcrypt.compare() here */
   try {
     //JWT setting;
@@ -95,6 +102,7 @@ exports.login_user = async (req, res) => {
     });
   }
 };
+
 //get profile;
 exports.getProfile = async (req, res) => {
   try {
@@ -125,7 +133,13 @@ exports.update = async (req, res) => {
     const { id } = req.params;
 
     // Grab update fields from request body
-    const { email, password, username } = req.body;
+    let { email, password, username } = req.body;
+
+    // hash the password if it's provided
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      password = await bcrypt.hash(password, salt);
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       id,

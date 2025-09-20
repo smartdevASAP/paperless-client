@@ -1,14 +1,21 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
-
+import axios from "axios";
 // Create context
 export const AppContext = createContext();
+
+// Axios instance with backend base URL
+const BASE_URL = "http://localhost:5000";
+
+const API = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true, // allows cookies/auth headers
+});
 
 // Provider component
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("unauthorised");
   const [appMode, setAppMode] = useState(true);
-
   // user end authentication credentials
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
