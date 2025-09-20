@@ -5,15 +5,14 @@ const mongoose = require("mongoose");
 const connectCloudinary = require("./configs/cloudinary.js");
 const cors = require("cors");
 
-app.use(express.json()); // to read JSON body
 //configuring CORS middleware;
-app.use(
-  cors({
-    origin: "http://localhost:5173", // React dev server
-    credentials: true, // allow cookies if you're using auth
-  })
-);
-
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", // React dev server
+//     credentials: true, // allow cookies if you're using auth
+//   })
+// );
+// app.use(express.json()); // to read JSON body
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
 

@@ -4,6 +4,8 @@ import { useAppContext } from "../../context/appcontext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 function UserAuth() {
   //consuming the context
   const {
@@ -17,22 +19,42 @@ function UserAuth() {
     setUserPassword,
     user,
     setUser,
+    paperlessUser,
+    setPaperlessUser,
   } = useAppContext();
   //setting local state & user related functions
   const [userStatus, setUserStatus] = useState(false);
-
   //setting default state when the component mounts
   useEffect(() => {
     setAppMode(false);
     setUserStatus(false);
   }, []);
-
   //checking the credentials on development
   //creating acc
-  const creatingAcc = () => {
-    useNavigate("/user-dashboard/dashHome");
-    console.log("user creating account....");
-    console.log({ username, userEmail, userPassword });
+  const navigate = useNavigate();
+  const creatingAcc = async () => {
+    const env = "development";
+    if (env === "development") {
+      console.log("user creating account....");
+      console.log({ username, userEmail, userPassword });
+    }
+
+    try {
+      const { data } = await axios.post("/home/signin", {
+        username,
+        email: userEmail,
+        password: userPassword,
+      });
+
+      if (data.success) {
+        setPaperlessUser(data.user);
+        navigate("/user-dashboard/dashHome");
+      } else {
+        toast.error(data.message || "Account creation failed");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message);
+    }
   };
 
   const loggingIn = () => {

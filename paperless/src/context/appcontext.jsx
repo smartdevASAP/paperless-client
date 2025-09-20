@@ -5,17 +5,16 @@ import axios from "axios";
 export const AppContext = createContext();
 
 // Axios instance with backend base URL
+axios.defaults.withCredentials = true;
 const BASE_URL = "http://localhost:5000";
-
-const API = axios.create({
-  baseURL: BASE_URL,
-  withCredentials: true, // allows cookies/auth headers
-});
+axios.defaults.baseURL = BASE_URL;
 
 // Provider component
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("unauthorised");
+  const [paperlessUser, setPaperlessUser] = "";
   const [appMode, setAppMode] = useState(true);
+  const [loading, setLoading] = useState(false); //for setting the loading spinners
   // user end authentication credentials
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -90,6 +89,12 @@ export const AppContextProvider = ({ children }) => {
     console.log("Updated docs:", addedDocuments);
   }, [addedDocuments]);
 
+  //global backend first call
+  const API = axios.create({
+    baseURL: BASE_URL,
+    withCredentials: true, // allows cookies/auth headers
+  });
+
   // Values to pass down the component tree
   const value = {
     user,
@@ -112,6 +117,8 @@ export const AppContextProvider = ({ children }) => {
     setFile,
     handleUpload,
     addedDocuments,
+    paperlessUser,
+    setPaperlessUser,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
