@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 function UserAuth() {
   //consuming the context
   const {
@@ -22,17 +23,26 @@ function UserAuth() {
     paperlessUser,
     setPaperlessUser,
   } = useAppContext();
+
+  //logging in credentials;
+  const [loggingEmail, setLoggingEmail] = useState("");
+  const [loggingPassword, setLoggingPassword] = useState("");
   //setting local state & user related functions
   const [userStatus, setUserStatus] = useState(false);
+  const [loadingCreate, setLoadingCreate] = useState(false);
+  const [loadingLogin, setLoadingLogin] = useState(false);
+
   //setting default state when the component mounts
   useEffect(() => {
     setAppMode(false);
     setUserStatus(false);
   }, []);
-  //checking the credentials on development
-  //creating acc
+
   const navigate = useNavigate();
+
+  //creating acc
   const creatingAcc = async () => {
+    setLoadingCreate(true);
     const env = "development";
     if (env === "development") {
       console.log("user creating account....");
@@ -54,17 +64,40 @@ function UserAuth() {
       }
     } catch (err) {
       toast.error(err.response?.data?.message || err.message);
+    } finally {
+      setLoadingCreate(false);
     }
   };
 
-  const loggingIn = () => {
+  const loggingIn = async () => {
+    setLoadingLogin(true);
     console.log("user logging in....");
     console.log({ userEmail, userPassword });
+
+    try {
+      const { data } = await axios.post("/home/login", {
+        email: loggingEmail,
+        password: loggingPassword,
+      });
+
+      if (data.success) {
+        setPaperlessUser(data.user);
+        navigate("/user-dashboard/dashHome");
+      } else {
+        toast.error(data.message || "Login failed");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message);
+    } finally {
+      setLoadingLogin(false); //state reset
+    }
   };
+
   //forgot password
   const forgotPassword = () => {
-    window.alert("Cannot change password please try again later");
+    toast.error("Cannot change password please try again later");
   };
+
   return (
     <div className="p-2  md:p-4">
       <Link to="/">
@@ -116,9 +149,14 @@ function UserAuth() {
                 onClick={() => {
                   creatingAcc();
                 }}
+                disabled={loadingCreate}
                 className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
               >
-                create account
+                {loadingCreate ? (
+                  <span className="loader border-2 border-white border-t-transparent w-5 h-5 rounded-full animate-spin inline-block"></span>
+                ) : (
+                  "create account"
+                )}
               </button>
 
               <p className="text-gray-500 text-xs">
@@ -150,16 +188,16 @@ function UserAuth() {
                 <div>
                   <p className="text-sm text-gray-500 ">email</p>
                   <input
-                    onChange={(e) => setUserPassword(e.target.value)}
+                    onChange={(e) => setLoggingEmail(e.target.value)}
                     className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
                     type="text"
-                    placeholder="***********"
+                    placeholder="example@gmail.com"
                   />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 ">password</p>
                   <input
-                    onChange={(e) => setUserPassword(e.target.value)}
+                    onChange={(e) => setLoggingPassword(e.target.value)}
                     className="block mb-6 w-full text-gray-400 border-1 rounded-xs p-2 border-gray-200"
                     type="text"
                     placeholder="***********"
@@ -175,14 +213,19 @@ function UserAuth() {
                   </p>
                 </div>
               </div>
-              <Link to="/user-dashboard">
-                <button
-                  onClick={() => loggingIn()}
-                  className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
-                >
-                  Login
-                </button>
-              </Link>
+
+              <button
+                onClick={() => loggingIn()}
+                disabled={loadingLogin}
+                className="p-2 w-full bg-blue-500 mt-8 mb-8 rounded-sm shadow-sm text-white text-center"
+              >
+                {loadingLogin ? (
+                  <span className="loader border-2 border-white border-t-transparent w-5 h-5 rounded-full animate-spin inline-block"></span>
+                ) : (
+                  "Login"
+                )}
+              </button>
+
               <p className="text-gray-500 text-xs">
                 I Dont have an account{" "}
                 <a
