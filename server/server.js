@@ -15,7 +15,6 @@ const cors = require("cors");
 // app.use(express.json()); // to read JSON body
 //configuring the environment variables
 dotenv.config({ path: "./config.env" });
-
 const databaseFunction = async () => {
   try {
     await mongoose.connect(process.env.CONNECTION_URI).then(() => {
