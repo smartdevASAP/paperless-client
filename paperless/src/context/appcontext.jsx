@@ -12,7 +12,7 @@ axios.defaults.baseURL = BASE_URL;
 // Provider component
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState("unauthorised");
-  const [paperlessUser, setPaperlessUser] = "";
+  const [paperlessUser, setPaperlessUser] = useState("");
   const [appMode, setAppMode] = useState(true);
   const [loading, setLoading] = useState(false); //for setting the loading spinners
   // user end authentication credentials
