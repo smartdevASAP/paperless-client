@@ -4,6 +4,7 @@ import { UploadCloud } from "lucide-react";
 import { useAppContext } from "../../context/appcontext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 function Upload() {
   //destructuring the context;
   const {
@@ -19,6 +20,8 @@ function Upload() {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+  // //sending files to the backend;
+  // const {data}=await axios.post("/home/upload",)
   return (
     <div className="p-4">
       {/* Toast container */}
