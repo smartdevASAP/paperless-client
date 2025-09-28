@@ -16,7 +16,10 @@ app.use(
 );
 //adding document middleware
 app.use(cookieParser());
-app.use(express.json());
+// allow up to 10MB payload
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
 //user entry point
 app.use("/home", user_endpoints);
 //admin entry point
