@@ -52,37 +52,82 @@ export const AppContextProvider = ({ children }) => {
     });
   };
   // handle upload function
+  // const handleUpload = async () => {
+  //   if (!file) return toast.error("Choose a file to add to paperless");
+  //   if (!title || !description)
+  //     return toast.error("Missing title or description");
+
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("title", title);
+  //     formData.append("description", description);
+  //     formData.append("file", file); // 👈 raw file, not base64
+
+  //     const { data } = await axios.post("/api/upload", formData, {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     });
+
+  //     if (data.success) {
+  //       toast.success("Document uploaded successfully");
+  //       setTitle("");
+  //       setDescription("");
+  //       setFile(null);
+  //       setAddedDocuments((prev) => [
+  //         ...prev,
+  //         {
+  //           title: data.document.title,
+  //           description: data.document.description,
+  //           file: data.document.fileURL,
+  //         }, // ✅ always use file
+  //       ]);
+  //     } else {
+  //       toast.error("Error occurred while uploading");
+  //     }
+  //   } catch (err) {
+  //     toast.error("Upload failed");
+  //     console.error(err);
+  //   }
+  // };
+  //----AI CODE
   const handleUpload = async () => {
-    if (!title && !description && file == null) {
-      return toast.error("No details provided in the uploading process");
-    }
-    if (!title || !description) {
-      return toast.error(
-        "Missing title or description in the uploading process"
-      );
-    }
-    if (!file) {
-      return toast.error("Choose a file to add to paperless");
-    }
+    if (!file) return toast.error("Choose a file to add to paperless");
+    if (!title || !description)
+      return toast.error("Missing title or description");
 
     try {
-      const base64File = await fileToBase64(file);
-      const uploadDate = new Date();
-      setAddedDocuments((prev) => [
-        ...prev,
-        { title, description, file: base64File, date: uploadDate },
-      ]);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("file", file);
 
-      // clear fields after upload
-      setTitle("");
-      setDescription("");
-      setFile(null);
-      //most important part 👇👇👇
-      console.log({ title, description, file, uploadDate });
+      const { data } = await axios.post("/api/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (data.success) {
+        toast.success("Document uploaded successfully");
+        setTitle("");
+        setDescription("");
+        setFile(null);
+
+        setAddedDocuments((prev) => [
+          ...prev,
+          {
+            title: data.document.title,
+            description: data.document.description,
+            file: data.document.fileURL, // 👈 correct URL
+          },
+        ]);
+      } else {
+        toast.error("Error occurred while uploading");
+      }
     } catch (err) {
-      toast.error("Failed to process file");
+      toast.error("Upload failed");
+      console.error(err);
     }
   };
+
+  //---
 
   // log when state updates
   useEffect(() => {

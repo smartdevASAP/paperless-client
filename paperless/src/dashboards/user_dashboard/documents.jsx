@@ -1,7 +1,7 @@
 import React from "react";
 import { assets } from "../../assets/assets_config";
 import { documents } from "../../assets/assets_config";
-import AllDocuments from "../../globals/allDocuments.jsx";
+import AllDocuments from "../../globals/allDocuments";
 function Documents() {
   return (
     <>
